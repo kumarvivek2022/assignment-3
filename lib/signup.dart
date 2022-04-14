@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-class SignUP extends StatefulWidget {
-  const SignUP({Key? key}) : super(key: key);
+import 'package:auth_ui/login_screen.dart';
+
+class SignUp extends StatefulWidget {
+  const SignUp({Key? key}) : super(key: key);
 
   @override
-  State<SignUP> createState() => _SignUPState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _SignUPState extends State<SignUP> {
+class _SignUpState extends State<SignUp> {
   final emailController = TextEditingController();
   String password = '';
   bool isPasswordVisible = false;
-
 
   @override
   void initState() {
@@ -24,89 +25,182 @@ class _SignUPState extends State<SignUP> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
-      child: Column(
-        children: [
-          Container(
-          height: size.height,
-          width: double.infinity,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-            Positioned(
-            top: 0,
-            left: 0,
-            child: Image.asset("assets/image/image4.jpeg", width: size.width * 0.3,),
-
-          ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                child: Image.asset("assets/image/image2.jpeg", width: size.width * 0.2,),
-
+        child: Column(
+          children: [
+            SizedBox(
+              height: 270,
+              width: double.infinity,
+              child: Stack(
+                children: [
+                  Positioned(
+                      top: 0,
+                      left: 0,
+                      width: 100,
+                      height: 93,
+                      child: Image.asset('assets/image/image4.jpeg')),
+                  const Positioned(
+                    top: 50,
+                    left: 160,
+                    child: Text(
+                      "SIGNUP",
+                      style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                  ),
+                  Positioned(
+                      top: 75,
+                      left: 90,
+                      width: 200,
+                      height: 183,
+                      child: Image.asset('assets/image/signup.jpeg')),
+                ],
               ),
-               const Positioned(
-                top: 80,
-
-                child: Text('SIGNUP',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
-                ),
-              ),
-              Positioned(
-                  top: 160,
-                  child: Image.asset('assets/image/signup.jpeg', width: size.width *0.8,)
-              ),
-          ]
-
-          ),),
-
-          Container(
-                height: 130,
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
+            ),
+            Container(
+              height: 350,
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: [
+                  TextField(
+                    controller: emailController,
+                    decoration: InputDecoration(
+                        hintText: 'abc@xzymail.com',
+                        prefixIcon: const Icon(Icons.person),
+                        suffixIcon: emailController.text.isEmpty
+                            ? const SizedBox(
+                          height: 0,
+                          width: 0,
+                        )
+                            : IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () => emailController.clear(),
+                        ),
+                        filled: true,
+                        fillColor: Colors.purple.shade100,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide.none,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextField(
+                    onChanged: (value) => setState(() => this.password = value),
+                    onSubmitted: (value) =>
+                        setState(() => this.password = value),
+                    decoration: InputDecoration(
+                        hintText: 'password',
+                        prefixIcon: const Icon(Icons.lock),
+                        suffixIcon: IconButton(
+                          icon: isPasswordVisible
+                              ? const Icon(Icons.visibility_off)
+                              : const Icon(Icons.visibility),
+                          onPressed: () => setState(
+                                  () => isPasswordVisible = !isPasswordVisible),
+                        ),
+                        filled: true,
+                        fillColor: Colors.purple.shade100,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide.none,
+                        )),
+                    obscureText: isPasswordVisible,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text("SIGNUP"),
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.purple,
+                        fixedSize: const Size(300, 50),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50))),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(primary: Colors.black),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ));
+                    },
+                    child: const Text.rich(TextSpan(children: [
+                      TextSpan(
+                          text: 'Already have an account? ',
+                          style: TextStyle(color: Colors.purple, fontSize: 12)),
+                      TextSpan(
+                          text: ' Sign In',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              color: Colors.purple))
+                    ])),
+                  ),
+                  Row(
                     children: [
-                      TextField(
-                        controller: emailController,
-                        decoration: InputDecoration(
-                            hintText: 'name@mail.com',
-                            prefixIcon: Icon(Icons.person),
-                            suffixIcon: emailController.text.isEmpty
-                                ?Container(height: 0,width: 0,)
-                                :IconButton(
-                              icon: Icon(Icons.close),
-                              onPressed: () => emailController.clear(),
-                            ),
-                            filled: true,
-                            fillColor: Colors.purple.shade100,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide.none,
-                            )
-                        ),
+                      Expanded(
+                        child: Container(
+                            margin:
+                            const EdgeInsets.only(left: 10.0, right: 20.0),
+                            child: const Divider(
+                              color: Colors.black,
+                              height: 36,
+                            )),
                       ),
-                       const SizedBox(height: 10,),
-                      TextField(
-                        onChanged: (value) => setState(() => this.password = value),
-                        onSubmitted: (value) => setState(() => this.password = value),
-                        decoration: InputDecoration(
-                            hintText: 'password',
-                            prefixIcon: const Icon(Icons.lock),
-                            suffixIcon: IconButton(
-                              icon: isPasswordVisible
-                                  ?const Icon(Icons.visibility_off)
-                                  :const Icon(Icons.visibility),
-                              onPressed: () =>
-                                  setState(() => isPasswordVisible = !isPasswordVisible),
-                            ),
-                            filled: true,
-                            fillColor: Colors.purple.shade100,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide.none,
-                            )
-                        ),
-                        obscureText: isPasswordVisible,
-                      ),]),
-             ),
-    ]),
+                      const Text(
+                        "OR",
+                        style: TextStyle(
+                            color: Colors.purple, fontWeight: FontWeight.bold),
+                      ),
+                      Expanded(
+                        child: Container(
+                            margin:
+                            const EdgeInsets.only(left: 20.0, right: 10.0),
+                            child: const Divider(
+                              color: Colors.black,
+                              height: 36,
+                            )),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.black.withOpacity(0.1),
+                        child: Image.asset('assets/image/facebook.png',
+                          height: 20, width: 20,),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      CircleAvatar(
+                        backgroundColor: Colors.black.withOpacity(0.1),
+                        child: Image.asset('assets/image/twitter.png',
+                          height: 20, width: 20,),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      CircleAvatar(
+                        backgroundColor: Colors.black.withOpacity(0.1),
+                        child: Image.asset('assets/image/google.png',
+                          height: 20, width: 20,),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

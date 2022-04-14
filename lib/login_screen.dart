@@ -134,7 +134,7 @@ class _LogInState extends State<LoginScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const SignUP(),
+                                    builder: (context) => const SignUp(),
                                   ));
                             },
                             child: const Text('Don\'t have an account? Sign up',
